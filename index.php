@@ -46,6 +46,20 @@ $hexCommands[] = array(
     "hexcommand" => "0000 0068 0000 0022 0168 00B4 0016 0043 0016 0016 0016 0043 0016 0016 0016 0016 0016 0043 0016 0016 0016 0043 0016 0016 0016 0043 0016 0016 0016 0043 0016 0043 0016 0016 0016 0043 0016 0016 0016 0043 0016 0043 0016 0016 0016 0043 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0043 0016 0016 0016 0043 0016 0043 0016 0043 0016 0043 0016 03DD",
 );
 
+// Samsung:
+$hexCommands[] = array(
+    "description" => "Samsung Power On",
+    "command" => "",
+    "hexcommand" => "0000 006D 0000 0022 00AC 00AC 0016 0040 0016 0040 0016 0040 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0040 0016 0040 0016 0040 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0040 0016 0015 0016 0015 0016 0040 0016 0040 0016 0015 0016 0015 0016 0040 0016 0015 0016 0040 0016 0040 0016 0015 0016 0015 0016 0040 0016 0040 0016 0015 0016 0719",
+);
+
+$hexCommands[] = array(
+    "description" => "Samsung Power Off",
+    "command" => "",
+    "hexcommand" => "0000 006C 001A 0004 00AD 00AD 0015 0041 0015 0041 0015 0041 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0041 0015 0041 0015 0041 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0015 0041 0015 0041 0015 0015 0015 0015 0015 0041 0015 0041 0015 0041 0015 0041 0015 0015 0015 0015",
+);
+
+
 foreach ($hexCommands as $hexcommand) {
     $hexcommandArray = explode(" ", $hexcommand["hexcommand"]);
     for ($i = 0; $i < 4; $i++) {
@@ -56,7 +70,8 @@ foreach ($hexCommands as $hexcommand) {
     foreach($hexcommandArray as $element) {
         $decArray[] = hexdec($element) * 25;
     }
-    echo $hexcommand["description"] . " - " . $hexcommand["command"] . PHP_EOL;
+
+    echo $hexcommand["description"] . " - " . $hexcommand["command"] . " - " . count($decArray) . " elements " . PHP_EOL;
     echo implode(",", $decArray);
     echo PHP_EOL;
     echo PHP_EOL;
