@@ -15,7 +15,7 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-#include <IRremote.h>
+#include <IRLib.h>
 #include <stdlib.h> 
 
 
@@ -35,7 +35,9 @@ int RECV_PIN = 5;
 
 IRsend irsend;
 IRrecv irrecv(RECV_PIN);
-decode_results results;
+//decode_results results;
+IRdecode My_Decoder;
+unsigned int Buffer[RAWBUF];
 
 String readString; 
 int repeat = 3;
@@ -73,13 +75,20 @@ void loop() {
   // listen for incoming clients
   EthernetClient client = server.available();
 
-  if (irrecv.decode(&results)) {
-    if (millis() - last > 250) {
-      dump(&results);
-    }
-    last = millis();      
-    irrecv.resume(); // Receive the next value
+  if (irrecv.GetResults(&My_Decoder)) {
+    //Restart the receiver so it can be capturing another code
+    //while we are working on decoding this one.
+    irrecv.resume(); 
+    My_Decoder.decode();
+    My_Decoder.DumpResults();
   }
+//  if (irrecv.decode(&results)) {
+//    if (millis() - last > 250) {
+//      dump(&results);
+//    }
+//    last = millis();      
+//    irrecv.resume(); // Receive the next value
+//  }
 
   if (client) {
     Serial.println(F("new client"));
@@ -216,17 +225,17 @@ void loop() {
   
               for (int i = 0; i < repeat; i++) {
                 if (protocol == 1) {
-                  irsend.sendRC5(code, 12); // d4c
+                  irsend.send(RC5, code, 12, 38); // d4c
                   Serial.println(F("Sending protocol rc5"));
                   delay(delayValue);
                 }
                 else if (protocol == 2) {
-                  irsend.sendNEC(code, 32, frequency);
+                  irsend.send(NEC, code, 32, frequency);
                   Serial.println(F("Sending protocol nec"));
                   delay(delayValue);
                 }
                 else if (protocol == 3) {
-                  irsend.sendSAMSUNG(code, 32, frequency);
+                  irsend.send(NECX, code, 32, frequency);
                   Serial.println(F("Sending Protocol samsung"));
                   delay(delayValue);
                 }
@@ -252,53 +261,53 @@ void loop() {
 // void * to work around compiler issue
 //void dump(void *v) {
 //  decode_results *results = (decode_results *)v
-void dump(decode_results *results) {
-  int count = results->rawlen;
-  if (results->decode_type == UNKNOWN) {
-    Serial.println(F("Could not decode message"));
-  } 
-  else {
-    if (results->decode_type == NEC) {
-      Serial.print(F("Decoded NEC: "));
-      irProtocol = "NEC";
-    } 
-    else if (results->decode_type == SONY) {
-      Serial.print(F("Decoded SONY: "));
-      irProtocol = "SONY";
-    } 
-    else if (results->decode_type == RC5) {
-      //Serial.print(results->decode_type);
-      Serial.print(F("Decoded RC5: "));
-      irProtocol = "RC6";
-    } 
-    else if (results->decode_type == RC6) {
-      Serial.print(F("Decoded RC6: "));
-      irProtocol = "RC6";
-    }
-    else if (results->decode_type == SAMSUNG) {
-      Serial.print(F("Decoded Samsung: "));
-      irProtocol = "SAMSUNG";
-    }
-    irCode = results->value;
-    Serial.print(results->value, HEX);
-    Serial.print(F(" ("));
-    Serial.print(results->bits, DEC);
-    Serial.println(F(" bits)"));
-  }
-  Serial.print(F("Raw ("));
-  Serial.print(count, DEC);
-  Serial.print(F("): "));
-
-  for (int i = 0; i < count; i++) {
-    if ((i % 2) == 1) {
-      Serial.print(results->rawbuf[i]*USECPERTICK, DEC);
-    } 
-    else {
-      Serial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
-    }
-    Serial.print(F(" "));
-  }
-  Serial.println(F(""));
-}
+//void dump(decode_results *results) {
+//  int count = results->rawlen;
+//  if (results->decode_type == UNKNOWN) {
+//    Serial.println(F("Could not decode message"));
+//  } 
+//  else {
+//    if (results->decode_type == NEC) {
+//      Serial.print(F("Decoded NEC: "));
+//      irProtocol = "NEC";
+//    } 
+//    else if (results->decode_type == SONY) {
+//      Serial.print(F("Decoded SONY: "));
+//      irProtocol = "SONY";
+//    } 
+//    else if (results->decode_type == RC5) {
+//      //Serial.print(results->decode_type);
+//      Serial.print(F("Decoded RC5: "));
+//      irProtocol = "RC6";
+//    } 
+//    else if (results->decode_type == RC6) {
+//      Serial.print(F("Decoded RC6: "));
+//      irProtocol = "RC6";
+//    }
+//    else if (results->decode_type == SAMSUNG) {
+//      Serial.print(F("Decoded Samsung: "));
+//      irProtocol = "SAMSUNG";
+//    }
+//    irCode = results->value;
+//    Serial.print(results->value, HEX);
+//    Serial.print(F(" ("));
+//    Serial.print(results->bits, DEC);
+//    Serial.println(F(" bits)"));
+//  }
+//  Serial.print(F("Raw ("));
+//  Serial.print(count, DEC);
+//  Serial.print(F("): "));
+//
+//  for (int i = 0; i < count; i++) {
+//    if ((i % 2) == 1) {
+//      Serial.print(results->rawbuf[i]*USECPERTICK, DEC);
+//    } 
+//    else {
+//      Serial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
+//    }
+//    Serial.print(F(" "));
+//  }
+//  Serial.println(F(""));
+//}
 
 
