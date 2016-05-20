@@ -114,6 +114,7 @@ void loop() {
           client.println(F("<a href='/?code=A55AD827&p=2&r=5&f=40&d=20'>Uit</a>"));  
           client.println(F("<a href='/?code=A55A58A7&p=2&r=5&f=40&d=20'>Aan</a>")); 
           client.println(F("<a href='/?code=A55A8A75&p=2&r=3&f=40&d=20'>Mute aan</a>"));
+          client.println(F("<a href='/?code=A55A4AB5&p=2&r=3&f=40&d=20'>Mute Off</a>"));
           client.println(F("<a href='/?code=A55A48B7&p=2&r=3&f=40&d=20'>Mute</a>"));
           client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40&d=20'>D AUX</a>"));
           client.println(F("<a href='/?code=A55AF20D&p=2&r=3&f=40&d=20'>A AUX</a>"));

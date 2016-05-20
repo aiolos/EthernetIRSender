@@ -4,6 +4,7 @@ Volume Up   -   A55A50AF
 Volume Down -   A55AD02F
 Mute        -   A55A48B7
 Mute On     -   A55A8A75
+Mute Off    -   A55A4AB5
 On/Off      -   A55A38C7
 Power On    -   A55A58A7
 Power Off   -   A55AD827
