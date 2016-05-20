@@ -4,6 +4,8 @@ Volume Up   -   A55A50AF
 Volume Down -   A55AD02F
 Mute        -   A55A48B7
 On/Off      -   A55A38C7
+Power On	-	A55A58A7
+Power Off	-	A55AD827
 Eco         -   A55A9A65
 D AUX       -   A55A7A85
 A AUX       -   A55AF20D
@@ -41,18 +43,6 @@ Preset+     -   25DA08F7
 Tune-       -   25DAEA15
 Tune+       -   25DAEA15
 
-<codes>
-		<code name="AmpVolumeUp" data="a55a50af"/>
-		<code name="AmpVolumeDown" data="a55ad02f"/>
-		<code name="AmpSourceAux" data="a55af20d"/>
-		<code name="AmpSourceDat" data="a55ab847"/>
-		<code name="AmpSourceTape" data="a55a728d"/>
-		<code name="AmpSourceCD" data="a55a32cd"/>
-		<code name="AmpSourceTuner" data="a55ae21d"/>
-		<code name="AmpSourcePhono" data="a55ab24d"/>
-		<code name="AmpPower" data="a55a38c7"/>
-		Power off: D827
-</codes>
 
 Power ON/OFF - A51C
 9000,4500,550,1675,550,550,550,1675,550,550,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,550,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,1675,550,24725

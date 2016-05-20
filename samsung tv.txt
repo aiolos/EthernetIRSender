@@ -1,5 +1,63 @@
-Samsung Power On -  - 68 elements
-4300,4300,550,1600,550,1600,550,1600,550,525,550,525,550,525,550,525,550,525,550,1600,550,1600,550,1600,550,525,550,525,550,525,550,525,550,525,550,1600,550,525,550,525,550,1600,550,1600,550,525,550,525,550,1600,550,525,550,1600,550,1600,550,525,550,525,550,1600,550,1600,550,525,550,45425
+Codes Samsung TV
 
-Samsung Power Off -  - 60 elements
-4325,4325,525,1625,525,1625,525,1625,525,525,525,525,525,525,525,525,525,525,525,1625,525,1625,525,1625,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,1625,525,1625,525,525,525,525,525,1625,525,1625,525,1625,525,1625,525,525,525,525
+Prefix: 0xE0E0
+
+Power                    0x40BF
+TV                       0xD827
+1                        0x20DF
+2                        0xA05F
+3                        0x609F
+4                        0x10EF
+5                        0x906F
+6                        0x50AF
+7                        0x30CF
+8                        0xB04F
+9                        0x708F
+0                        0x8877
+Enter                    0x16E9
+OK                       0x16E9
+Pre-Ch                   0xC837
+Mute                     0xF00F
+Source                   0x807F
+Vol+                     0xE01F
+Vol-                     0xD02F
+VolUp                    0xE01F
+VolDn                    0xD02F
+Chan+                    0x48B7
+Chan-                    0x08F7
+ChanUp                   0x48B7
+ChanDn                   0x08F7
+Menu                     0x58A7
+Ch.List                  0xD629
+Fav.Ch                   0x22DD
+Tools                    0xD22D
+Return                   0x1AE5
+Up                       0x06F9
+Down                     0x8679
+Left                     0xA659
+Right                    0x46B9
+Exit                     0xB44B
+Red                      0x36C9
+Green                    0x28D7
+Yellow                   0xA857
+Blue                     0x6897
+TTX                      0x34CB
+Info                     0xF807
+Guide                    0xF20D
+Subt                     0xA45B
+Rewind                   0xA25D
+Pause                    0x52AD
+Forward                  0x12ED
+Record                   0x926D
+Play                     0xE21D
+Stop                     0x629D
+Comp1                    0x619E
+PowerOff                 0x19E6
+PowerOn                  0x9966
+Comp2                    0x11EE
+ANYNET                   0xE916
+HDMI1                    0x9768
+HDMI2                    0x7D82
+HDMI3                    0x43BC
+HDMI4                    0xA35C
+VGA                      0x9669

@@ -34,10 +34,6 @@ EthernetServer server(80);
 int RECV_PIN = 5;
 
 IRsend irsend;
-IRrecv irrecv(RECV_PIN);
-//decode_results results;
-IRdecode My_Decoder;
-unsigned int Buffer[RAWBUF];
 
 String readString; 
 int repeat = 3;
@@ -65,8 +61,6 @@ void setup() {
   server.begin();
   Serial.print(F("server is at "));
   Serial.println(Ethernet.localIP());
-
-  irrecv.enableIRIn(); // Start the receiver
 }
 
 unsigned long last = millis();
@@ -74,21 +68,6 @@ unsigned long last = millis();
 void loop() {
   // listen for incoming clients
   EthernetClient client = server.available();
-
-  if (irrecv.GetResults(&My_Decoder)) {
-    //Restart the receiver so it can be capturing another code
-    //while we are working on decoding this one.
-    irrecv.resume(); 
-    My_Decoder.decode();
-    My_Decoder.DumpResults();
-  }
-//  if (irrecv.decode(&results)) {
-//    if (millis() - last > 250) {
-//      dump(&results);
-//    }
-//    last = millis();      
-//    irrecv.resume(); // Receive the next value
-//  }
 
   if (client) {
     Serial.println(F("new client"));
@@ -130,16 +109,16 @@ void loop() {
           client.println(F("<a href='/?code=C0D&p=1'>Mute</a>")); 
 
           client.println(F("<h2>Pioneer</h2>"));
-          client.println(F("<a href='/?code=A55A50AF&p=2&r=3&f=40'>Vol +</a>")); 
-          client.println(F("<a href='/?code=A55AD02F&p=2&r=3&f=40'>Vol -</a>")); 
-          client.println(F("<a href='/?code=A55AD827&p=2&r=5&f=40'>Uit</a>"));  
-          client.println(F("<a href='/?code=A55A58A7&p=2&r=5&f=40'>Aan</a>")); 
-          client.println(F("<a href='/?code=A55A8A75&p=2&r=3&f=40'>Mute aan</a>"));
-          client.println(F("<a href='/?code=A55A48B7&p=2&r=3&f=40'>Mute</a>"));
-          client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40'>D AUX</a>"));
-          client.println(F("<a href='/?code=A55AF20D&p=2&r=3&f=40'>A AUX</a>"));
-          client.println(F("<a href='/?code=A55AA15E&p=2&r=3&f=40'>AppleTV</a>"));
-          client.println(F("<a href='/?code=A55A3AC5&p=2&r=3&f=40'>AppleTV3</a>"));
+          client.println(F("<a href='/?code=A55A50AF&p=2&r=3&f=40&d=20'>Vol +</a>")); 
+          client.println(F("<a href='/?code=A55AD02F&p=2&r=3&f=40&d=20'>Vol -</a>")); 
+          client.println(F("<a href='/?code=A55AD827&p=2&r=5&f=40&d=20'>Uit</a>"));  
+          client.println(F("<a href='/?code=A55A58A7&p=2&r=5&f=40&d=20'>Aan</a>")); 
+          client.println(F("<a href='/?code=A55A8A75&p=2&r=3&f=40&d=20'>Mute aan</a>"));
+          client.println(F("<a href='/?code=A55A48B7&p=2&r=3&f=40&d=20'>Mute</a>"));
+          client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40&d=20'>D AUX</a>"));
+          client.println(F("<a href='/?code=A55AF20D&p=2&r=3&f=40&d=20'>A AUX</a>"));
+          client.println(F("<a href='/?code=A55AA15E&p=2&r=3&f=40&d=20'>AppleTV</a>"));
+          client.println(F("<a href='/?code=A55A3AC5&p=2&r=3&f=40&d=20'>AppleTV3</a>"));
 
           client.println(F("<h2>DAB</h2>"));
           client.println(F("<a href='/?code=40BF18E7&p=2&r=1'>Vol +</a>")); 
@@ -168,6 +147,10 @@ void loop() {
 
           client.println(F("<h2>Samsung</h2>"));
           client.println(F("<a href='/?code=E0E040BF&p=3&r=1'>Aan/Uit</a>")); 
+          client.println(F("<a href='/?code=E0E09966&p=3&r=1'>Aan</a>")); 
+          client.println(F("<a href='/?code=E0E019E6&p=3&r=1'>Uit</a>")); 
+          client.println(F("<a href='/?code=E0E043BC&p=3&r=1'>HDMI3</a>")); 
+          client.println(F("<a href='/?code=E0E0D827&p=3&r=1'>TV</a>")); 
 
           client.println(F("<h2>IrCode:</h2>"));
           if (irCode > 0) {
@@ -248,7 +231,7 @@ void loop() {
             repeat = 3;
             protocol = 1; //"rc5";
             // Re-enable the IR receive
-            irrecv.enableIRIn();
+            //irrecv.enableIRIn();
           }
         }
       }
@@ -256,58 +239,5 @@ void loop() {
   }
 }
 
-// Dumps out the decode_results structure.
-// Call this after IRrecv::decode()
-// void * to work around compiler issue
-//void dump(void *v) {
-//  decode_results *results = (decode_results *)v
-//void dump(decode_results *results) {
-//  int count = results->rawlen;
-//  if (results->decode_type == UNKNOWN) {
-//    Serial.println(F("Could not decode message"));
-//  } 
-//  else {
-//    if (results->decode_type == NEC) {
-//      Serial.print(F("Decoded NEC: "));
-//      irProtocol = "NEC";
-//    } 
-//    else if (results->decode_type == SONY) {
-//      Serial.print(F("Decoded SONY: "));
-//      irProtocol = "SONY";
-//    } 
-//    else if (results->decode_type == RC5) {
-//      //Serial.print(results->decode_type);
-//      Serial.print(F("Decoded RC5: "));
-//      irProtocol = "RC6";
-//    } 
-//    else if (results->decode_type == RC6) {
-//      Serial.print(F("Decoded RC6: "));
-//      irProtocol = "RC6";
-//    }
-//    else if (results->decode_type == SAMSUNG) {
-//      Serial.print(F("Decoded Samsung: "));
-//      irProtocol = "SAMSUNG";
-//    }
-//    irCode = results->value;
-//    Serial.print(results->value, HEX);
-//    Serial.print(F(" ("));
-//    Serial.print(results->bits, DEC);
-//    Serial.println(F(" bits)"));
-//  }
-//  Serial.print(F("Raw ("));
-//  Serial.print(count, DEC);
-//  Serial.print(F("): "));
-//
-//  for (int i = 0; i < count; i++) {
-//    if ((i % 2) == 1) {
-//      Serial.print(results->rawbuf[i]*USECPERTICK, DEC);
-//    } 
-//    else {
-//      Serial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
-//    }
-//    Serial.print(F(" "));
-//  }
-//  Serial.println(F(""));
-//}
 
 
