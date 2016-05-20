@@ -1,0 +1,22 @@
+PIONEER VSX 500
+
+A55A:
+
+		0       2       8       A
+0       (10)    (+10)   (ch>)   -
+1       (8)     sleep   -       -
+2       (4)     -       -       video select
+3       -       cd      power   -
+4       (2)     -       mute    -
+5       vol>    balance on      -
+6       (6)     (A-B)   -       (fr>)
+7       vcr2(am) tape   (mono)  -
+8       (1)     -       (<ch)   mute on
+9       (9)     bal>    -       -
+A       (5)     -       -       select
+B       vdp(fm) phono   -       -
+C       (3)     -       (am/fm) -
+D       <vol    <bal    off     -
+E       (7)     tuner   -       (<fr)
+F       vcr1    -       -       -
+

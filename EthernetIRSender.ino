@@ -37,12 +37,27 @@ IRsend irsend;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
+//dit is de code voor pioneer-reciever SX-205RDS VOLUME UP 
+//unsigned int VolUp[68] = {8550,4250,550,1575,550,525,550,1575,550,525,550,525,525,1600,550,525,525,1600,550,525,525,1600,550,525,525,1600,550,1575,550,525,550,1575,550,525,550,525,525,1600,550,525,525,1600,550,525,525,525,550,525,550,525,525,1600,550,525,525,1600,550,525,525,1600,550,1575,550,1600,525,1600,550,25450};  
+//unsigned int VolUp[68] = {25822,8550,4100,650,1450,650,400,650,1500 ,650 ,400 ,600 ,450 ,650 ,1450 ,650 ,450 ,650 ,1450 ,650 ,400 ,650 ,1450 ,650 ,450 ,600 ,1500 ,600 ,1500 ,650 ,400 ,650 ,1450 ,650 ,450 ,600 ,450 ,600 ,1500 ,650 ,400 ,650 ,1500 ,600 ,450 ,600 ,450 ,650 ,400 ,650 ,450 ,600 ,1500 ,600 ,450 ,650 ,1450 ,650 ,450 ,600 ,1500 ,600 ,1500 ,600 ,1500 ,650 ,1450 ,650}; 
+//unsigned int VolUp[72] = {0x0000,0x0068,0x0000,0x0022,
+//unsigned int VolUp[68] = {0x0168,0x00B4,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0016,0x0016,0x0016,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0016,0x0016,0x0043,0x0016,0x0043,0x0016,0x0043,0x0016,0x0043,0x0016,0x03DD};
+//dit is de code voor pioneer-reciever SX-205RDS VOLUME Down 
+//unsigned int VolDown[74] = {8525,4250,550,1600,525,550,550,1600,525,525,550,525,550,1575,550,525,550,1575,550,525,550,1575,550,525,550,1575,550,1600,525,525,550,1600,525,525,550,1600,525,1600,550,525,525,1600,550,525,525,525,550,525,550,525,525,525,550,525,550,1575,550,525,550,1575,550,1600,525,1600,550,1575,550,25425,8525,4250,550,1600,525,525}; 
+//Raw (68): -28758 8500 -4150 600 -1500 600 -450 650 -1450 650 -450 600 -450 600 -1500 600 -450 650 -1450 650 -450 600 -1500 600 -450 650 -1450 650 -1450 650 -450 600 -1500 600 -450 650 -1450 650 -1450 650 -450 600 -1500 600 -450 650 -450 600 -450 600 -450 650 -400 650 -450 600 -1500 600 -450 650 -1450 650 -1500 600 -1500 600 -1500 600 
+
+unsigned int OnOff[68] = {9000,4500,550,1675,550,550,550,1675,550,550,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,550,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,550,550,550,550,550,550,1675,550,1675,550,1675,550,24725};
+unsigned int VolUp[68] = {9000,4500,550,1675,550,550,550,1675,550,550,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,550,550,1675,550,550,550,550,550,1675,550,550,550,1675,550,550,550,550,550,550,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,1675,550,1675,550,24725};
+unsigned int VolDown[68] = {9000,4500,550,1675,550,550,550,1675,550,550,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,550,550,1675,550,550,550,1675,550,1675,550,550,550,1675,550,550,550,550,550,550,550,550,550,550,550,550,550,1675,550,550,550,1675,550,1675,550,1675,550,1675,550,24725};
+
+unsigned int SamsungOn[68] = {4300,4300,550,1600,550,1600,550,1600,550,525,550,525,550,525,550,525,550,525,550,1600,550,1600,550,1600,550,525,550,525,550,525,550,525,550,525,550,1600,550,525,550,525,550,1600,550,1600,550,525,550,525,550,1600,550,525,550,1600,550,1600,550,525,550,525,550,1600,550,1600,550,525,550,45425};
+unsigned int SamsungOff[60] = {4325,4325,525,1625,525,1625,525,1625,525,525,525,525,525,525,525,525,525,525,525,1625,525,1625,525,1625,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,525,1625,525,1625,525,525,525,525,525,1625,525,1625,525,1625,525,1625,525,525,525,525};
 String readString; 
 int repeat = 3;
 unsigned long uli;
 char p;
 char data[100];
-int protocol = 1; // 1 = "rc5", 2 = "nec", 3 = "samsung";
+int protocol = 1; // 1 = "rc5", 2 = "nec", 3 = "samsung", 4 = "pioneer";
 unsigned long code;
 bool commandSend = false;
 
@@ -80,9 +95,9 @@ void loop() {
   }
 
   if (client) {
-    Serial.println("new client");
+    //Serial.println("new client");
     // an http request ends with a blank line
-    boolean currentLineIsBlank = true;
+    //boolean currentLineIsBlank = true;
     while (client.connected()) {
       if (client.available()) {
       
@@ -102,43 +117,50 @@ void loop() {
           Serial.println(readString); //print to serial monitor for debuging 
 
           //now output HTML data header
-          client.println("HTTP/1.1 200 OK"); //send new page
-          client.println("Content-Type: text/html");
+          client.println(F("HTTP/1.1 200 OK")); //send new page
+          client.println(F("Content-Type: text/html"));
           client.println();
 
-          client.println("<HTML><HEAD>");
-          client.println("<TITLE>Ethernet IR Sender</TITLE></HEAD>");
-          client.println("<BODY>");
+          client.println(F("<HTML><HEAD>"));
+          client.println(F("<TITLE>Ethernet IR Sender</TITLE></HEAD>"));
+          client.println(F("<BODY>"));
 
-          client.println("<H1>Ethernet IR sender</H1>");
+          client.println(F("<H1>Ethernet IR sender</H1>"));
 
-          client.println("<h2>Philips</h2>");
-          client.println("<a href='/?code=410&protocol=1'>Vol +</a>"); 
-          client.println("<a href='/?code=411&protocol=1'>Vol -</a>"); 
-          client.println("<a href='/?code=47F&protocol=1&repeat=10'>Tuner aan</a>"); 
-          client.println("<a href='/?code=44C&protocol=1'>Uit</a>"); 
-          client.println("<a href='/?code=C0D&protocol=1'>Mute</a>"); 
+          client.println(F("<h2>Philips</h2>"));
+          client.println(F("<a href='/?code=410&p=1'>Vol +</a>")); 
+          client.println(F("<a href='/?code=411&p=1'>Vol -</a>")); 
+          client.println(F("<a href='/?code=47F&p=1&r=10'>Tuner aan</a>")); 
+          client.println(F("<a href='/?code=44C&p=1'>Uit</a>")); 
+          client.println(F("<a href='/?code=C0D&p=1'>Mute</a>")); 
 
-          client.println("<h2>Pioneer</h2>");
-          client.println("<a href='/?code=A55A50AF&p=2&r=1'>Vol +</a>"); 
-          client.println("<a href='/?code=A55AD02F&p=2&r=1'>Vol -</a>"); 
-          client.println("<a href='/?code=47F&repeat=10'>Tuner aan</a>"); 
-          client.println("<a href='/?code=A55A38C7&p=2&r=1'>Uit</a>"); 
-          client.println("<a href='/?code=A55A48B7&p=2&r=1'>Mute</a>"); 
+          client.println(F("<h2>Pioneer</h2>"));
+          client.println(F("<a href='/?code=A55A50AF&p=2&r=1'>Vol +</a>")); 
+          client.println(F("<a href='/?code=A55AD02F&p=2&r=1'>Vol -</a>")); 
+          //client.println("<a href='/?code=47F&repeat=10'>Tuner aan</a>")); 
+          client.println(F("<a href='/?code=A55AD827&p=2&r=1'>Uit</a>"));  
+          client.println(F("<a href='/?code=A55A58A7&p=2&r=1'>Aan</a>")); 
+          client.println(F("<a href='/?code=A55A48B7&p=2&r=1'>Mute</a>")); 
 
-          client.println("<h2>Samsung</h2>");
-          client.println("<a href='/?code=E0E040BF&p=3&r=1'>Aan/Uit</a>"); 
+          client.println(F("<h2>DAB</h2>"));
+          client.println(F("<a href='/?code=40BF18E7&p=2&r=1'>Vol +</a>")); 
+          client.println(F("<a href='/?code=40BF30CF&p=2&r=1'>Vol -</a>")); 
+          client.println(F("<a href='/?code=40BFC837&p=2&r=1'>Uit</a>")); 
+          client.println(F("<a href='/?code=40BF609F&p=2&r=1'>Mute</a>")); 
 
-          client.println("<h2>IrCode:</h2>");
+          client.println(F("<h2>Samsung</h2>"));
+          client.println(F("<a href='/?code=E0E040BF&p=3&r=1'>Aan/Uit</a>")); 
+
+          client.println(F("<h2>IrCode:</h2>"));
           if (irCode > 0) {
             client.println(irCode, HEX);
-            client.println("<br>");
+            client.println(F("<br>"));
             client.println(irProtocol);
           } else {
-            client.println("Geen code ontvangen");
+            client.println(F("Geen code ontvangen"));
           }
 
-          client.println("</BODY></HTML>");
+          client.println(F("</BODY></HTML>"));
 
           delay(1);
           //stopping client
@@ -163,7 +185,8 @@ void loop() {
                    } else if (strcmp(name, "repeat") == 0 || strcmp(name, "r") == 0) {
                     repeat = atoi(value);
                    } else if (strcmp(name, "code") == 0) {
-                    code = x2i(value);
+                    //code = x2i(value);
+                    code = strtoul(value, 0, 16);
                    }
                    
                    name = strtok(NULL, "="); // Get the next name
@@ -171,7 +194,7 @@ void loop() {
              }
   
             if (commandSend) {
-              Serial.println("protocol/code/repeat");
+              Serial.println(F("protocol/code/repeat"));
               Serial.println(protocol);
               Serial.println(code);
               Serial.println(repeat);
@@ -179,21 +202,23 @@ void loop() {
                 repeat = 10;
               }
   
-              if (protocol == 1) {
-                for (int i = 0; i < repeat; i++) {
-                  if (protocol == 1) {
-                    irsend.sendRC5(code, 12); // d4c
-                    Serial.println("Protocol rc5");
-                    delay(40);
-                  }
-                  else if (protocol == 2) {
-                    irsend.sendNEC(code, 32);
-                    Serial.println("Protocol nec");
-                  }
-                  else if (protocol == 3) {
-                    irsend.sendSAMSUNG(code, 32);
-                    Serial.println("Sending Protocol samsung");
-                  }
+              for (int i = 0; i < repeat; i++) {
+                if (protocol == 1) {
+                  irsend.sendRC5(code, 12); // d4c
+                  //Serial.println("Protocol rc5");
+                  delay(40);
+                }
+                else if (protocol == 2) {
+                  irsend.sendNEC(code, 32);
+                  
+                  //irsend.sendNEC(REPEAT, 32);
+                  //Serial.println("Protocol nec");
+                  delay(20);
+                }
+                else if (protocol == 3) {
+                  irsend.sendSAMSUNG(code, 32);
+                  //Serial.println("Sending Protocol samsung");
+                  delay(40);
                 }
               }
             }
@@ -220,35 +245,35 @@ void loop() {
 void dump(decode_results *results) {
   int count = results->rawlen;
   if (results->decode_type == UNKNOWN) {
-    Serial.println("Could not decode message");
+    Serial.println(F("Could not decode message"));
   } 
   else {
     if (results->decode_type == NEC) {
-      Serial.print("Decoded NEC: ");
+      Serial.print(F("Decoded NEC: "));
       irProtocol = "NEC";
     } 
     else if (results->decode_type == SONY) {
-      Serial.print("Decoded SONY: ");
+      Serial.print(F("Decoded SONY: "));
       irProtocol = "SONY";
     } 
     else if (results->decode_type == RC5) {
       //Serial.print(results->decode_type);
-      Serial.print("Decoded RC5: ");
+      Serial.print(F("Decoded RC5: "));
       irProtocol = "RC6";
     } 
     else if (results->decode_type == RC6) {
-      Serial.print("Decoded RC6: ");
+      Serial.print(F("Decoded RC6: "));
       irProtocol = "RC6";
     }
     irCode = results->value;
     Serial.print(results->value, HEX);
-    Serial.print(" (");
+    Serial.print(F(" ("));
     Serial.print(results->bits, DEC);
-    Serial.println(" bits)");
+    Serial.println(F(" bits)"));
   }
-  Serial.print("Raw (");
+  Serial.print(F("Raw ("));
   Serial.print(count, DEC);
-  Serial.print("): ");
+  Serial.print(F("): "));
 
   for (int i = 0; i < count; i++) {
     if ((i % 2) == 1) {
@@ -257,31 +282,9 @@ void dump(decode_results *results) {
     else {
       Serial.print(-(int)results->rawbuf[i]*USECPERTICK, DEC);
     }
-    Serial.print(" ");
+    Serial.print(F(" "));
   }
-  Serial.println("");
+  Serial.println(F(""));
 }
 
-int x2i(char *s) 
-{
- int x = 0;
- for(;;) {
-   char c = *s;
-   if (c >= '0' && c <= '9') {
-      x *= 16;
-      x += c - '0'; 
-   }
-   else if (c >= 'A' && c <= 'F') {
-      x *= 16;
-      x += (c - 'A') + 10; 
-   }
-   else if (c >= 'a' && c <= 'f') {
-      x *= 16;
-      x += (c - 'a') + 10; 
-   }
-   else break;
-   s++;
- }
- return x;
-}
 
