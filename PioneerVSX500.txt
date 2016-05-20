@@ -3,9 +3,10 @@ IR Codes Pioneer VSX s500
 Volume Up   -   A55A50AF
 Volume Down -   A55AD02F
 Mute        -   A55A48B7
+Mute On     -   A55A8A75
 On/Off      -   A55A38C7
-Power On	-	A55A58A7
-Power Off	-	A55AD827
+Power On    -   A55A58A7
+Power Off   -   A55AD827
 Eco         -   A55A9A65
 D AUX       -   A55A7A85
 A AUX       -   A55AF20D
