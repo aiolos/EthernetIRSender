@@ -1,3 +1,46 @@
+IR Codes Pioneer VSX s500
+
+Volume Up   -   A55A50AF
+Volume Down -   A55AD02F
+Mute        -   A55A48B7
+On/Off      -   A55A38C7
+Eco         -   A55A9A65
+D AUX       -   A55A7A85
+A AUX       -   A55AF20D
+iPod/USB    -   A55A7986
+Network     -   A55A3AC5
+Adapter     -   A55A3AC5
+Tuner       -   A55AE21D
+BD          -   A55A3AC5
+DVD         -   A55AA15E
+CD          -   A55A32CD
+STB         -   A55A3AC5
+Game        -   A55A3AC5
+Auto/Direct -   A55A59A6
+Alc/Standard-   A55A7A85
+Adv Surr    -   A55AF906
+Sound wing  -   A55AEA15
+Receiver    -   N/A
+TV          -   A55A30CF
+Portable    -   A55A7986
+Sleep       -   A55A12ED
+SP-AB       -   A55A6A95
+Dimmer      -   A55A6A95
+Status      -   A55AD926
+Top menu    -   A55A5AA5
+Menu/tools  -   A55A39C6
+Up          -   A55A01FE
+Down        -   A55A817E
+Left        -   A55AC13E
+Right       -   A55A41BE
+Enter       -   A55A21DE
+Home Menu   -   A55AD926
+Return      -   A55ABA45
+Preset-     -   25DA8877
+Preset+     -   25DA08F7
+Tune-       -   25DAEA15
+Tune+       -   25DAEA15
+
 <codes>
 		<code name="AmpVolumeUp" data="a55a50af"/>
 		<code name="AmpVolumeDown" data="a55ad02f"/>
