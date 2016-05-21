@@ -116,10 +116,12 @@ void loop() {
           client.println(F("<a href='/?code=A55A8A75&p=2&r=3&f=40&d=20'>Mute aan</a>"));
           client.println(F("<a href='/?code=A55A4AB5&p=2&r=3&f=40&d=20'>Mute Off</a>"));
           client.println(F("<a href='/?code=A55A48B7&p=2&r=3&f=40&d=20'>Mute</a>"));
-          client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40&d=20'>D AUX</a>"));
+          client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40&d=20'>D AUX 1</a>"));
+          client.println(F("<a href='/?code=A55A837C&p=2&r=3&f=40&d=20'>D AUX 2</a>"));
           client.println(F("<a href='/?code=A55AF20D&p=2&r=3&f=40&d=20'>A AUX</a>"));
           client.println(F("<a href='/?code=A55AA15E&p=2&r=3&f=40&d=20'>AppleTV</a>"));
-          client.println(F("<a href='/?code=A55A3AC5&p=2&r=3&f=40&d=20'>AppleTV3</a>"));
+          client.println(F("<a href='/?code=A55A3AC5&p=2&r=3&f=40&d=20'>AppleTV3 1</a>"));
+          client.println(F("<a href='/?code=A55A03FC&p=2&r=3&f=40&d=20'>AppleTV3 2</a>"));
 
           client.println(F("<h2>DAB</h2>"));
           client.println(F("<a href='/?code=40BF18E7&p=2&r=1'>Vol +</a>")); 
