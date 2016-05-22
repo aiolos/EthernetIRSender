@@ -149,11 +149,11 @@ void loop() {
           client.println(F("<a href='/?code=40BFD02F&p=2&r=1'>12</a>")); 
 
           client.println(F("<h2>Samsung</h2>"));
-          client.println(F("<a href='/?code=E0E040BF&p=3&r=1'>Aan/Uit</a>")); 
-          client.println(F("<a href='/?code=E0E09966&p=3&r=1'>Aan</a>")); 
-          client.println(F("<a href='/?code=E0E019E6&p=3&r=1'>Uit</a>")); 
-          client.println(F("<a href='/?code=E0E043BC&p=3&r=1'>HDMI3</a>")); 
-          client.println(F("<a href='/?code=E0E0D827&p=3&r=1'>TV</a>")); 
+          client.println(F("<a href='/?code=E0E040BF&p=3&r=2'>Aan/Uit</a>"));
+          client.println(F("<a href='/?code=E0E09966&p=3&r=2'>Aan</a>"));
+          client.println(F("<a href='/?code=E0E019E6&p=3&r=2'>Uit</a>"));
+          client.println(F("<a href='/?code=E0E043BC&p=3&r=2'>HDMI3</a>"));
+          client.println(F("<a href='/?code=E0E0D827&p=3&r=2'>TV</a>"));
 
           client.println(F("<h2>IrCode:</h2>"));
           if (irCode > 0) {
@@ -231,7 +231,9 @@ void loop() {
             //clearing string for next read
             commandSend = false;
             readString="";
+            frequency = 38;
             repeat = 3;
+            delayValue = 40;
             protocol = 1; //"rc5";
             // Re-enable the IR receive
             //irrecv.enableIRIn();
