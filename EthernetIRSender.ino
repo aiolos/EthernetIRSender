@@ -6,11 +6,13 @@
   - Point your browser to the given IP address (default 192.168.1.177)
   - Click one of the predefined commands
 
-  - An URL is formed like: http://192.168.1.177/?code=C0D&protocol=1&repeat=1
+  - An URL is formed like: http://192.168.1.177/?code=C0D&p=1&r=1
     Where 
     - code: is the hexadecimal code of the command (recodable by putting a IR receiver on pin 5)
-    - protocol: is the protocol to use, for now: 1 = rc5, 2=NEC, 3=Samsung
-    - repeat: is the number of repeats of the command, defaults to 1  
+    - sc = secondcode: the second code for a single command
+    - p = protocol: is the protocol to use, for now: 1 = rc5, 2=NEC, 3=Samsung
+    - r = repeat: is the number of repeats of the command, defaults to 1  
+    - d = delay: delay between repetitive commands
  */
 
 #include <SPI.h>
@@ -31,7 +33,7 @@ IPAddress ip(192, 168, 1, 177);
 // (port 80 is default for HTTP):
 EthernetServer server(80);
 
-int RECV_PIN = 5;
+//int RECV_PIN = 5;
 
 IRsend irsend;
 
@@ -39,15 +41,15 @@ String readString;
 int repeat = 3;
 int frequency = 38;
 int delayValue = 40;
-unsigned long uli;
 char p;
 char data[100];
 int protocol = 1; // 1 = "rc5", 2 = "nec", 3 = "samsung";
 unsigned long code;
+unsigned long secondcode;
 bool commandSend = false;
 
-unsigned long irCode;
-String irProtocol;
+//unsigned long irCode;
+//String irProtocol;
 
 void setup() {
   // Open serial communications and wait for port to open:
@@ -99,7 +101,7 @@ void loop() {
           client.println(F("<TITLE>Ethernet IR Sender</TITLE></HEAD>"));
           client.println(F("<BODY>"));
 
-          client.println(F("<H1>Ethernet IR sender</H1>"));
+          client.println(F("<a href='/'><H1>Ethernet IR sender</H1></a>"));
 
           client.println(F("<h2>Philips</h2>"));
           client.println(F("<a href='/?code=410&p=1'>Vol +</a>")); 
@@ -116,12 +118,10 @@ void loop() {
           client.println(F("<a href='/?code=A55A8A75&p=2&r=3&f=40&d=20'>Mute aan</a>"));
           client.println(F("<a href='/?code=A55A4AB5&p=2&r=3&f=40&d=20'>Mute Off</a>"));
           client.println(F("<a href='/?code=A55A48B7&p=2&r=3&f=40&d=20'>Mute</a>"));
-          client.println(F("<a href='/?code=A55A7A85&p=2&r=3&f=40&d=20'>D AUX 1</a>"));
-          client.println(F("<a href='/?code=A55A837C&p=2&r=3&f=40&d=20'>D AUX 2</a>"));
+          client.println(F("<a href='/?code=A55A7A85&sc=A55A837C&p=2&r=3&f=40&d=20'>D AUX</a>"));
           client.println(F("<a href='/?code=A55AF20D&p=2&r=3&f=40&d=20'>A AUX</a>"));
           client.println(F("<a href='/?code=A55AA15E&p=2&r=3&f=40&d=20'>AppleTV</a>"));
-          client.println(F("<a href='/?code=A55A3AC5&p=2&r=3&f=40&d=20'>AppleTV3 1</a>"));
-          client.println(F("<a href='/?code=A55A03FC&p=2&r=3&f=40&d=20'>AppleTV3 2</a>"));
+          client.println(F("<a href='/?code=A55A3AC5&sc=A55A03FC&p=2&r=3&f=40&d=20'>AppleTV3</a>"));
 
           client.println(F("<h2>DAB</h2>"));
           client.println(F("<a href='/?code=40BF18E7&p=2&r=1'>Vol +</a>")); 
@@ -155,15 +155,6 @@ void loop() {
           client.println(F("<a href='/?code=E0E043BC&p=3&r=2'>HDMI3</a>"));
           client.println(F("<a href='/?code=E0E0D827&p=3&r=2'>TV</a>"));
 
-          client.println(F("<h2>IrCode:</h2>"));
-          if (irCode > 0) {
-            client.println(irCode, HEX);
-            client.println(F("<br>"));
-            client.println(irProtocol);
-          } else {
-            client.println(F("Geen code ontvangen"));
-          }
-
           client.println(F("</BODY></HTML>"));
 
           delay(1);
@@ -184,15 +175,17 @@ void loop() {
                 if(value)
                 {
                    // Do something with name and valu
-                   if (strcmp(name, "protocol") == 0 || strcmp(name, "p") == 0) {
+                   if (strcmp(name, "p") == 0) {
                     protocol = atoi(value);
-                   } else if (strcmp(name, "repeat") == 0 || strcmp(name, "r") == 0) {
+                   } else if (strcmp(name, "r") == 0) {
                     repeat = atoi(value);
                    } else if (strcmp(name, "code") == 0) {
                     code = strtoul(value, 0, 16);
-                   } else if (strcmp(name, "frequency") == 0 || strcmp(name, "f") == 0) {
+                   } else if (strcmp(name, "sc") == 0) {
+                    secondcode = strtoul(value, 0, 16);
+                   } else if (strcmp(name, "f") == 0) {
                     frequency = atoi(value);
-                   } else if (strcmp(name, "delay") == 0 || strcmp(name, "d") == 0) {
+                   } else if (strcmp(name, "d") == 0) {
                     delayValue = atoi(value);
                    }
                    
@@ -217,6 +210,10 @@ void loop() {
                 }
                 else if (protocol == 2) {
                   irsend.send(NEC, code, 32, frequency);
+                  if (secondcode > 0) {
+                    delay(20);
+                    irsend.send(NEC, secondcode, 32, frequency);
+                  }
                   Serial.println(F("Sending protocol nec"));
                   delay(delayValue);
                 }
@@ -233,6 +230,7 @@ void loop() {
             readString="";
             frequency = 38;
             repeat = 3;
+            secondcode = 0;
             delayValue = 40;
             protocol = 1; //"rc5";
             // Re-enable the IR receive
