@@ -1,0 +1,92 @@
+# Please make this file available to others
+# by sending it to <lirc@bartelmus.de>
+#
+# this config file was automatically generated
+# using lirc-0.8.7(default) on Sat Jul 16 21:53:30 2011
+#
+# contributed by
+#
+# brand:                       /home/user/samsung.conf.conf
+# model no. of remote control:
+# devices being controlled by this remote:
+#
+
+begin remote
+
+  name  tv
+  bits           16
+  flags SPACE_ENC
+  eps            30
+  aeps          100
+
+  header       4548  4394
+  one           626  1622
+  zero          626   504
+  ptrail        626
+  pre_data_bits   16
+  pre_data       0xE0E0
+  gap          46332
+  toggle_bit_mask 0x0
+
+      begin codes
+          Power                    0x40BF
+          TV                       0xD827
+          1                        0x20DF
+          2                        0xA05F
+          3                        0x609F
+          4                        0x10EF
+          5                        0x906F
+          6                        0x50AF
+          7                        0x30CF
+          8                        0xB04F
+          9                        0x708F
+          0                        0x8877
+          Enter                    0x16E9
+          OK                       0x16E9
+          Pre-Ch                   0xC837
+          Mute                     0xF00F
+          Source                   0x807F
+          Vol+                     0xE01F
+          Vol-                     0xD02F
+          VolUp                    0xE01F
+          VolDn                    0xD02F
+          Chan+                    0x48B7
+          Chan-                    0x08F7
+          ChanUp                   0x48B7
+          ChanDn                   0x08F7
+          Menu                     0x58A7
+          Ch.List                  0xD629
+          Fav.Ch                   0x22DD
+          Tools                    0xD22D
+          Return                   0x1AE5
+          Up                       0x06F9
+          Down                     0x8679
+          Left                     0xA659
+          Right                    0x46B9
+          Exit                     0xB44B
+          Red                      0x36C9
+          Green                    0x28D7
+          Yellow                   0xA857
+          Blue                     0x6897
+          TTX                      0x34CB
+          Info                     0xF807
+          Guide                    0xF20D
+          Subt                     0xA45B
+          Rewind                   0xA25D
+          Pause                    0x52AD
+          Forward                  0x12ED
+          Record                   0x926D
+          Play                     0xE21D
+          Stop                     0x629D
+          Comp1                    0x619E
+          PowerOff                 0x19E6
+          PowerOn                  0x9966
+          Comp2                    0x11EE
+          ANYNET                   0xE916
+          HDMI1                    0x9768
+          HDMI2                    0x7D82
+          HDMI3                    0x43BC
+          HDMI4                    0xA35C
+          VGA                      0x9669
+      end codes
+end remote
