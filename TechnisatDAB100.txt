@@ -157,7 +157,7 @@ Hex Codes Technisat DigitRadio 100 (DAB+)
 40BF9A65
 40BF9B64
 40BF9C63
-40BF9D62
+40BF9D62 -----------------------------------
 40BF9E61
 40BF9F60
 40BFA05F - Left
