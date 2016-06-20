@@ -8,10 +8,11 @@ Ethernet IR Sender to send IR command through an ethernet enabled Arduino (With 
   - An URL is formed like: http://192.168.1.177/?code=C0D&p=1&r=1
     Where
     - code: is the hexadecimal code of the command (recodable by putting a IR receiver on pin 5)
-    - sc = secondcode: the second code for a single command
+    - sc = secondcode: the second (hexadecimal) code for a single command
     - p = protocol: is the protocol to use, for now: 1 = rc5, 2=NEC, 3=Samsung
     - r = repeat: is the number of repeats of the command, defaults to 1
     - d = delay: delay between repetitive commands
+    - f = frequency: use a different frequency than the default 38Khz. (most IR devices have a frequency somewhere between 36 and 40Khz
 
 ## Dependencies
 You need my fork of IRLib (https://github.com/aiolos/IRLib), since this repo depends on an adjustable frequency in the IRLib library.
