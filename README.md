@@ -12,3 +12,6 @@ Ethernet IR Sender to send IR command through an ethernet enabled Arduino (With 
     - p = protocol: is the protocol to use, for now: 1 = rc5, 2=NEC, 3=Samsung
     - r = repeat: is the number of repeats of the command, defaults to 1
     - d = delay: delay between repetitive commands
+
+## Dependencies
+You need my fork of IRLib (https://github.com/aiolos/IRLib), since this repo depends on an adjustable frequency in the IRLib library.
